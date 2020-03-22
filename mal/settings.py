@@ -73,6 +73,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "mal.wsgi.application"
 
+AUTH_USER_MODEL = "main.User"
+
+LOGIN_REDIRECT_URL = "/"
+
+SESSION_COOKIE_AGE = 31449600  # 60 * 60 * 24 * 7 * 52 = 1 year in seconds
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -113,6 +119,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "_static")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
