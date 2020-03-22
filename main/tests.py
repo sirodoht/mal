@@ -83,3 +83,9 @@ class ProfileTestCase(TestCase):
     def test_profile(self):
         response = self.client.post(reverse("main:profile"))
         self.assertEquals(response.status_code, 200)
+
+
+class ProfileLoggedOutTestCase(TestCase):
+    def test_profile_noauth(self):
+        response = self.client.post(reverse("main:profile"))
+        self.assertEquals(response.status_code, 302)
