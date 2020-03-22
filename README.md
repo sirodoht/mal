@@ -118,5 +118,5 @@ This project is also configured to deploy to [dokku](http://dokku.viewdocs.io/do
 
 ## License
 
-This software is licensed under the MIT.
+This software is licensed under the MIT license.
 For more information, read the [LICENSE](LICENSE) file.
