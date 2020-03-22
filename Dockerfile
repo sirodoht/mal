@@ -8,10 +8,8 @@ RUN apt-get update && \
     netcat \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install -U pip
-RUN pip install --upgrade pip
 COPY requirements.txt /code/
-RUN pip install -Ur /code/requirements.txt
+RUN pip install -U pip && pip install -Ur /code/requirements.txt
 
 WORKDIR /code
 COPY . /code/
