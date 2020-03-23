@@ -1,0 +1,13 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<main>
+    <h1 class="main-title">
+        {{ doc.title }}
+    </h1>
+
+    <div class="main-body">
+        {{ doc.body.as_mark }}
+    </div>
+</main>
+{% endblock %}
