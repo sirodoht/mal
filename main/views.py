@@ -12,8 +12,6 @@ def index(request):
 
 def document(request, document_id):
     doc = models.Document.objects.get(id=document_id)
-    print("dov")
-    print(doc)
     return render(
         request,
         "main/document.html",
