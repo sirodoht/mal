@@ -7,3 +7,4 @@ django-dotenv
 isort
 flake8
 black
+markdown
