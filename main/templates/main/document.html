@@ -7,7 +7,7 @@
     </h1>
 
     <div class="main-body">
-        {{ doc.body.as_mark }}
+        {{ doc.as_markdown|safe }}
     </div>
 </main>
 {% endblock %}
