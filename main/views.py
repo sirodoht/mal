@@ -1,16 +1,31 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from main import forms
+from main import forms, models
 
 
 def index(request):
-    return render(request, "main/index.html")
+    return render(
+        request, "main/index.html", {"documents": models.Document.objects.all()}
+    )
+
+
+def document(request, document_id):
+    doc = models.Document.objects.get(id=document_id)
+    print("dov")
+    print(doc)
+    return render(
+        request,
+        "main/document.html",
+        {"documents": models.Document.objects.all(), "doc": doc},
+    )
 
 
 @login_required
 def profile(request):
-    return render(request, "main/profile.html")
+    return render(
+        request, "main/profile.html", {"documents": models.Document.objects.all()}
+    )
 
 
 def signup(request):
