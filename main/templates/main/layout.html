@@ -9,9 +9,41 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    <div class="grid">
+        <nav>
+            <a href="{% url 'main:index' %}" class="nav-title">
+                Project Mal
+            </a>
 
-    {% block content %}
-    {% endblock %}
+            <div class="nav-group">
+                <div class="nav-group-title">PINS</div>
+                <div class="nav-group-body">
+                    <div class="nav-group-body-item"><a href="#">House of Commons</a></div>
+                    <div class="nav-group-body-item"><a href="#">Congress</a></div>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">PAGES</div>
+                <div class="nav-group-body">
+                    {% for doc in documents %}
+                    <div class="nav-group-body-item"><a href="{% url 'main:document' doc.id %}">{{ doc.title }}</a></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        <div class="user">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'main:profile' %}" class="user-content">@{{ request.user.username }}</a>
+            {% else %}
+            <a href="{% url 'main:login' %}" class="user-content">Login</a>
+            {% endif %}
+        </div>
+    </div>
 
 </body>
 </html>
