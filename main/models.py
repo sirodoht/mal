@@ -14,7 +14,7 @@ class Document(models.Model):
     title = models.CharField(max_length=300)
     body = models.TextField(blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    is_pinned = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
 
     @property
     def as_markdown(self):
