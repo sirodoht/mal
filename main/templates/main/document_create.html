@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<main class="create">
+    <form action="{% url 'main:document_create' %}" method="post" class="create-form">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="create-form-title">
+        <label for="body">Body</label>
+        <textarea name="body" id="body" cols="30" rows="20" class="create-form-body"></textarea>
+        {% csrf_token %}
+        <input type="submit" value="Save " class="create-form-submit">
+    </form>
+</main>
+{% endblock %}
