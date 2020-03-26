@@ -56,12 +56,12 @@ def document_read(request, document_id):
 
 def document_create(request):
     if request.method == "POST":
-        form = forms.UserCreationForm(request.POST)
+        form = forms.DocumentCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("main:login")
+            doc = form.save()
+            return redirect("main:document_read", doc.id)
     else:
-        form = forms.UserCreationForm()
+        form = forms.DocumentCreationForm()
     return render(
         request,
         "main/document_create.html",
