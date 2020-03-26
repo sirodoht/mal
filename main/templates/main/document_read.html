@@ -10,4 +10,8 @@
         {{ doc.as_markdown|safe }}
     </div>
 </main>
+<aside class="rightbar">
+    {{ request.user }} created this document at Mar 24, 2030.
+    <br>{{ request.user }} last edited this document at Mar 24, 2030.
+</aside>
 {% endblock %}
