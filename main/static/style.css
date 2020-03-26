@@ -189,7 +189,8 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: minmax(200px, 1fr) 4fr 1fr;
+    grid-template-columns: minmax(200px, 300px) 600px 1fr 1fr;
+    grid-template-rows: 40px 100px auto;
     height: 100%;
 }
 
@@ -207,6 +208,7 @@ nav {
     padding-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
+    grid-area: 1 / 1 / 4 / 1;
 }
 
 .nav-title {
@@ -238,6 +240,18 @@ nav {
 main {
     padding-top: 16px;
     padding-left: 24px;
+    grid-area: 1 / 2 / 4 / 2;
+}
+
+.main-body {
+    width: 500px;
+}
+
+.rightbar {
+    padding-left: 8px;
+    border-left: 1px solid #d4d4d4;
+    grid-area: 2 / 3 / 3 / 4;
+    line-height: 1.5;
 }
 
 label {
@@ -265,13 +279,40 @@ textarea {
 }
 
 .user {
-    text-align: right;
+    grid-area: 1 / 4 / 2 / 5;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
 }
 
-.user-content {
+.user-items {
+    margin-right: 16px;
+    height: 100%;
+}
+
+.user-items-primary {
+    border: 2px solid #0864c7;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 100%;
+    display: inline-block;
+    line-height: 35px;
+    box-sizing: border-box;
+}
+
+.user-items-primary:hover {
+    text-decoration: none;
+}
+
+.user-profile-link {
     background: #f6f6f6;
     display: inline-block;
     padding: 12px 16px;
+}
+
+.user-profile-link:hover {
+    text-decoration: none;
 }
 
 .create-form {
