@@ -24,3 +24,9 @@ class DocumentCreationForm(forms.ModelForm):
     class Meta:
         model = models.Document
         fields = ["title", "body"]
+
+
+class DocumentChangeForm(forms.ModelForm):
+    class Meta:
+        model = models.Document
+        fields = ["title", "body"]

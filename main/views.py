@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
@@ -65,6 +66,27 @@ def document_create(request):
     return render(
         request,
         "main/document_create.html",
+        {
+            "documents": models.Document.objects.all(),
+            "featured": models.Document.objects.filter(is_featured=True),
+            "form": form,
+        },
+    )
+
+
+def document_change(request, document_id):
+    doc = models.Document.objects.get(id=document_id)
+    if request.method == "POST":
+        form = forms.DocumentChangeForm(request.POST, instance=doc)
+        if form.is_valid():
+            doc = form.save()
+            messages.success(request, "Document saved")
+            return redirect("main:document_read", doc.id)
+    else:
+        form = forms.DocumentChangeForm(instance=doc)
+    return render(
+        request,
+        "main/document_change.html",
         {
             "documents": models.Document.objects.all(),
             "featured": models.Document.objects.filter(is_featured=True),
