@@ -328,17 +328,11 @@ textarea {
     text-decoration: none;
 }
 
-.create-form {
-}
-
-.create-form-title {
+.create form input[name="title"] {
     font-size: 24px;
 }
 
-.create-form-body {
-}
-
-.create-form-submit {
+input[type="submit"] {
     background: var(--link-color);
     border-left: 2px solid transparent;
     border-right: 2px solid transparent;
@@ -350,6 +344,6 @@ textarea {
     font-size: 16px;
 }
 
-.create-form-submit:active {
+input[type="submit"]:active {
     border: 2px solid var(--ascend-color);
 }
