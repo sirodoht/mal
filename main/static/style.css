@@ -183,9 +183,9 @@ template {
 :root {
     --link-color: #0864c7;
     --ascend-color: #e68619;
-    --small-title: #878787;
+    --label-color: #878787;
     --border-color: #d4d4d4;
-    --background-gray: #f6f6f6;
+    --background-color: #f6f6f6;
     --success-color: #11a01d;
     --danger-color: #ec1616;
 }
@@ -197,10 +197,12 @@ body {
     height: 100vh;
 }
 
+.alert-info,
 .alert-success {
     color: var(--success-color);
 }
 
+.alert-warning,
 .alert-error {
     color: var(--danger-color);
 }
@@ -222,7 +224,7 @@ a:hover {
 }
 
 nav {
-    background: var(--background-gray);
+    background: var(--background-color);
     padding-top: 16px;
     padding-left: 16px;
     padding-right: 16px;
@@ -243,7 +245,7 @@ nav {
 
 .nav-group-title {
     font-size: 12px;
-    color: var(--small-title);
+    color: var(--label-color);
     margin-bottom: 4px;
 }
 
@@ -253,7 +255,7 @@ nav {
 
 .nav-group-body-item::before {
     content: '• ';
-    color: var(--small-title);
+    color: var(--label-color);
 }
 
 main {
@@ -274,16 +276,16 @@ h1 {
     grid-row: 3;
     grid-column: 3;
     place-self: start;
-    color: var(--small-title);
+    color: var(--label-color);
     line-height: 1.7;
     padding: 8px 16px;
-    border-left: 12px solid var(--background-gray);
+    border-left: 12px solid var(--background-color);
 }
 
 label {
     display: block;
     text-transform: uppercase;
-    color: var(--small-title);
+    color: var(--label-color);
     font-size: 11px;
     margin-bottom: 4px;
 }
@@ -329,7 +331,7 @@ textarea {
 }
 
 .user-profile-link {
-    background: var(--background-gray);
+    background: var(--background-color);
     display: inline-block;
     padding: 12px 16px;
 }
