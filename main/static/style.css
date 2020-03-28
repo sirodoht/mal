@@ -197,8 +197,8 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: minmax(200px, 300px) 600px 1fr 1fr;
-    grid-template-rows: 40px 40px 88px auto;
+    grid-template-columns: minmax(200px, 300px) 800px 1fr 1fr;
+    grid-template-rows: 40px 40px auto;
     height: 100vh;
 }
 
@@ -257,17 +257,17 @@ h1 {
 }
 
 .main-body {
-    width: 500px;
+    width: 600px;
 }
 
 .rightbar {
-    padding: 8px 16px;
     grid-row: 3;
     grid-column: 3;
-    line-height: 1.7;
-    border: 12px solid var(--background-gray);
+    place-self: start;
     color: var(--small-title);
-    place-self: stretch left;
+    line-height: 1.7;
+    padding: 8px 16px;
+    border-left: 12px solid var(--background-gray);
 }
 
 label {
