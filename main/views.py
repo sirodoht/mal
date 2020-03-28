@@ -1,6 +1,9 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from main import forms, models
 
@@ -42,54 +45,22 @@ def signup(request):
     return render(request, "registration/signup.html", {"form": form})
 
 
-def document_read(request, document_id):
-    doc = models.Document.objects.get(id=document_id)
-    return render(
-        request,
-        "main/document_read.html",
-        {
-            "documents": models.Document.objects.all(),
-            "featured": models.Document.objects.filter(is_featured=True),
-            "doc": doc,
-        },
-    )
+class DocumentDetail(DetailView):
+    model = models.Document
 
 
-def document_create(request):
-    if request.method == "POST":
-        form = forms.DocumentCreationForm(request.POST)
-        if form.is_valid():
-            doc = form.save()
-            return redirect("main:document_read", doc.id)
-    else:
-        form = forms.DocumentCreationForm()
-    return render(
-        request,
-        "main/document_create.html",
-        {
-            "documents": models.Document.objects.all(),
-            "featured": models.Document.objects.filter(is_featured=True),
-            "form": form,
-        },
-    )
+class DocumentCreate(SuccessMessageMixin, CreateView):
+    model = models.Document
+    fields = ["title", "body"]
+    success_message = "%(title)s was created successfully"
 
 
-def document_change(request, document_id):
-    doc = models.Document.objects.get(id=document_id)
-    if request.method == "POST":
-        form = forms.DocumentChangeForm(request.POST, instance=doc)
-        if form.is_valid():
-            doc = form.save()
-            messages.success(request, "Document saved")
-            return redirect("main:document_read", doc.id)
-    else:
-        form = forms.DocumentChangeForm(instance=doc)
-    return render(
-        request,
-        "main/document_change.html",
-        {
-            "documents": models.Document.objects.all(),
-            "featured": models.Document.objects.filter(is_featured=True),
-            "form": form,
-        },
-    )
+class DocumentUpdate(SuccessMessageMixin, UpdateView):
+    model = models.Document
+    fields = ["title", "body"]
+    success_message = "%(title)s updated successfully"
+
+
+class DocumentDelete(DeleteView):
+    model = models.Document
+    success_url = reverse_lazy("main:index")

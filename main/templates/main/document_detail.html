@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<main>
+    <h1 class="main-title">
+        {{ document.title }}
+    </h1>
+
+    <div class="main-body">
+        {{ document.as_markdown|safe }}
+    </div>
+</main>
+<aside class="rightbar">
+    <a href="{% url 'main:document_update' document.id %}">Edit document</a>
+    <br>--
+    <br><a href="#">Del</a>
+    <br>--
+    <br>Created by {{ request.user }} at Mar 24, 2030.
+    <br>Last edited by {{ request.user }} at Mar 24, 2030.
+
+    {% if messages %}
+    <div class="alert">
+        {% for message in messages %}
+        <br><span{% if message.tags %} class="alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</aside>
+{% endblock %}

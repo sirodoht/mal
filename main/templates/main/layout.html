@@ -26,7 +26,7 @@
                 <div class="nav-group-title">FEATURED</div>
                 <div class="nav-group-body">
                     {% for doc in featured %}
-                    <div class="nav-group-body-item"><a href="{% url 'main:document_read' doc.id %}">{{ doc.title }}</a></div>
+                    <div class="nav-group-body-item"><a href="{% url 'main:document_detail' doc.id %}">{{ doc.title }}</a></div>
                     {% endfor %}
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="nav-group-title">DOCUMENTS</div>
                 <div class="nav-group-body">
                     {% for doc in documents %}
-                    <div class="nav-group-body-item"><a href="{% url 'main:document_read' doc.id %}">{{ doc.title }}</a></div>
+                    <div class="nav-group-body-item"><a href="{% url 'main:document_detail' doc.id %}">{{ doc.title }}</a></div>
                     {% endfor %}
                 </div>
             </div>

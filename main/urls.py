@@ -11,11 +11,19 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/profile/", views.profile, name="profile"),
     path("accounts/create/", views.signup, name="signup"),
+]
+
+urlpatterns += [
+    path("documents/<int:pk>/", views.DocumentDetail.as_view(), name="document_detail"),
+    path("documents/create/", views.DocumentCreate.as_view(), name="document_create"),
     path(
-        "documents/<int:document_id>/edit",
-        views.document_change,
-        name="document_change",
+        "documents/<int:pk>/edit/",
+        views.DocumentUpdate.as_view(),
+        name="document_update",
     ),
-    path("documents/<int:document_id>/", views.document_read, name="document_read"),
-    path("documents/create/", views.document_create, name="document_create"),
+    path(
+        "documents/<int:pk>/delete/",
+        views.DocumentDelete.as_view(),
+        name="document_delete",
+    ),
 ]

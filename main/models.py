@@ -1,6 +1,7 @@
 import markdown
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -25,6 +26,9 @@ class Document(models.Model):
                 "markdown.extensions.tables",
             ],
         )
+
+    def get_absolute_url(self):
+        return reverse("main:document_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title
