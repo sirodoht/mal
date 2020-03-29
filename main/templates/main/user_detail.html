@@ -1,12 +1,17 @@
 {% extends 'main/layout.html' %}
 
 {% block content %}
-<main>
+<main class="user">
     <h1 class="main-title">
         {{ user.username }}
     </h1>
     <div class="main-body">
-        <a href="{% url 'main:logout' %}">Logout</a>
+        <a href="{% url 'main:user_update' user.id %}">Update profile</a>
+        | <a href="{% url 'main:password_change' %}">Change password</a>
+        | <a href="{% url 'main:logout' %}">Logout</a>
+
+        <br>
+        <br><a href="{% url 'main:user_delete' user.id %}" class="user-delete">Self-destruct</a>
     </div>
 </main>
 {% endblock %}
