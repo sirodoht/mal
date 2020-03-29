@@ -92,6 +92,52 @@ class UserDetailTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class UserUpdateTestCase(TestCase):
+    def setUp(self):
+        self.user = models.User.objects.create(username="john")
+        self.user.set_password("abcdef123456")
+        self.user.save()
+
+    def test_user_update(self):
+        data = {"username": "john2", "email": "john2@example.com"}
+        response = self.client.post(
+            reverse("main:user_update", args=(self.user.id,)), data
+        )
+        self.assertEqual(response.status_code, 302)
+        updated_user = models.User.objects.get(id=self.user.id)
+        self.assertEqual(updated_user.username, data["username"])
+        self.assertEqual(updated_user.email, data["email"])
+
+
+class UserPasswordChangeTestCase(TestCase):
+    def setUp(self):
+        self.user = models.User.objects.create(username="john")
+        self.user.set_password("abcdef123456")
+        self.user.save()
+
+    def test_user_update(self):
+        data = {"username": "john2", "email": "john2@example.com"}
+        response = self.client.post(
+            reverse("main:user_update", args=(self.user.id,)), data
+        )
+        self.assertEqual(response.status_code, 302)
+        updated_user = models.User.objects.get(id=self.user.id)
+        self.assertEqual(updated_user.username, data["username"])
+        self.assertEqual(updated_user.email, data["email"])
+
+
+class UserDeleteTestCase(TestCase):
+    def setUp(self):
+        self.user = models.User.objects.create(username="john")
+        self.user.set_password("abcdef123456")
+        self.user.save()
+
+    def test_user_delete(self):
+        response = self.client.post(reverse("main:user_delete", args=(self.user.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(models.User.objects.filter(id=self.user.id).exists())
+
+
 class DocumentCreateTestCase(TestCase):
     def test_document_create(self):
         data = {
