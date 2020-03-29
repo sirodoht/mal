@@ -14,4 +14,12 @@
         </ul>
     </div>
 </main>
+
+{% if messages %}
+<aside class="rightbar">
+    {% for message in messages %}
+    <br><span{% if message.tags %} class="alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+    {% endfor %}
+</aside>
+{% endif %}
 {% endblock %}
