@@ -15,10 +15,23 @@ class UserDetail(DetailView):
     model = models.User
 
 
-class UserCreate(CreateView):
+class UserCreate(SuccessMessageMixin, CreateView):
     form_class = forms.UserCreationForm
     success_url = reverse_lazy("main:login")
     template_name = "main/user_create.html"
+    success_message = "Welcome!"
+
+
+class UserUpdate(SuccessMessageMixin, UpdateView):
+    model = models.User
+    fields = ["username", "email"]
+    success_message = "%(username)s updated successfully"
+    template_name = "main/user_update.html"
+
+
+class UserDelete(DeleteView):
+    model = models.User
+    success_url = reverse_lazy("main:index")
 
 
 class DocumentDetail(DetailView):
