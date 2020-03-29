@@ -1,7 +1,7 @@
 {% extends 'main/layout.html' %}
 
 {% block content %}
-<main>
+<main class="delete">
     <h1>Delete {{ document.title }} forever?</h1>
     <form method="post">
         {% csrf_token %}

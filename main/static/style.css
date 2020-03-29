@@ -362,3 +362,7 @@ input[type="submit"] {
 input[type="submit"]:active {
     border: 2px solid var(--ascend-color);
 }
+
+.delete input[type="submit"] {
+    background: var(--danger-color);
+}
