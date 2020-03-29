@@ -335,6 +335,10 @@ input[type="text"] {
     padding: 4px 4px;
 }
 
+input[type="checkbox"] {
+    margin-bottom: 16px;
+}
+
 textarea {
     display: block;
     margin-bottom: 16px;

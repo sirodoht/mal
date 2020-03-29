@@ -33,7 +33,7 @@ class DocumentCreate(SuccessMessageMixin, CreateView):
 
 class DocumentUpdate(SuccessMessageMixin, UpdateView):
     model = models.Document
-    fields = ["title", "body"]
+    fields = ["title", "body", "is_featured"]
     success_message = "%(title)s updated successfully"
 
 
