@@ -1,0 +1,11 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<main>
+    <h1>Delete {{ document.title }} forever?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes, delete it forever and ever.">
+    </form>
+</main>
+{% endblock %}
