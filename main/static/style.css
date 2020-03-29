@@ -268,14 +268,14 @@ nav {
     align-items: center;
 }
 
-.user-items {
+.user-items a {
     margin-right: 8px;
 }
 
 .user-items-primary {
     font-weight: 500;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
     display: inline-block;
     box-sizing: border-box;
 }

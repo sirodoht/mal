@@ -17,13 +17,11 @@
     <br>--
     <br>Created by {{ request.user }} at Mar 24, 2030.
     <br>Last edited by {{ request.user }} at Mar 24, 2030.
-
     {% if messages %}
-    <div class="alert">
-        {% for message in messages %}
-        <br><span{% if message.tags %} class="alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
-        {% endfor %}
-    </div>
+    <br>--
+    {% for message in messages %}
+    <br><span{% if message.tags %} class="alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+    {% endfor %}
     {% endif %}
 </aside>
 {% endblock %}
