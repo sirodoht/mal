@@ -103,12 +103,6 @@ export EMAIL_HOST_USER="smtp_user"
 export EMAIL_HOST_PASSWORD="smtp_password"
 ```
 
-To stop it (from the dir root of the project):
-
-```sh
-uwsgi --stop ./pid-uwsgi
-```
-
 ## Dokku
 
 This project is also configured to deploy to [dokku](http://dokku.viewdocs.io/dokku/).
