@@ -17,12 +17,12 @@ services:
                done;
                ./manage.py migrate;
                ./manage.py collectstatic --noinput;
-               exec /usr/local/bin/uwsgi --chdir=/code --ini=/code/uwsgi.ini"
+               ./manage.py runserver 0.0.0.0:8000"
     build: .
     image: mal
     volumes:
       - .:/code
     ports:
-      - "5000:5000"
+      - "8000:8000"
     depends_on:
       - db

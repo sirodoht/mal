@@ -73,6 +73,12 @@ Or, if you prefer to run the web server under Docker:
 docker-compose up web
 ```
 
+In which case, `DATABASE_URL` in `.env` should be like this:
+
+```sh
+DATABASE_URL="postgres://postgres:postgres@db:5432/postgres"
+```
+
 ## Testing
 
 ```sh
