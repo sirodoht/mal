@@ -1,14 +1,14 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 
 from main import forms, models
 
 
-def index(request):
-    return render(request, "main/index.html")
+class Index(TemplateView):
+    template_name = "main/index.html"
 
 
 class UserDetail(DetailView):

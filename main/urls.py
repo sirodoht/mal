@@ -7,10 +7,12 @@ admin.site.site_header = "mal administration"
 app_name = "main"
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.Index.as_view(), name="index"),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/create/", views.UserCreate.as_view(), name="user_create"),
     path("accounts/<int:pk>/", views.UserDetail.as_view(), name="user_detail"),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/<int:pk>/edit/", views.UserUpdate.as_view(), name="user_update"),
+    path("accounts/<int:pk>/delete/", views.UserDelete.as_view(), name="user_delete"),
     path("import/", views.FileFieldView.as_view(), name="import_md"),
 ]
 
