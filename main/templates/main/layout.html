@@ -50,7 +50,7 @@
             </div>
             <div class="user-profile">
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'main:profile' %}" class="user-profile-link">@{{ request.user.username }}</a>
+                <a href="{% url 'main:user_detail' request.user.id %}" class="user-profile-link">@{{ request.user.username }}</a>
                 {% else %}
                 <a href="{% url 'main:login' %}" class="user-profile-link">Login</a>
                 {% endif %}

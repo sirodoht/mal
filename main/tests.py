@@ -10,14 +10,14 @@ class IndexTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class SignupTestCase(TestCase):
+class UserCreateTestCase(TestCase):
     def test_user_creation(self):
         data = {
             "username": "john",
             "password1": "abcdef123456",
             "password2": "abcdef123456",
         }
-        response = self.client.post(reverse("main:signup"), data)
+        response = self.client.post(reverse("main:user_create"), data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(models.User.objects.get(username=data["username"]))
 
@@ -75,7 +75,7 @@ class LogoutTestCase(TestCase):
         self.assertFalse(user.is_authenticated)
 
 
-class ProfileTestCase(TestCase):
+class UserDetailTestCase(TestCase):
     def setUp(self):
         user = models.User.objects.create(username="john")
         user.set_password("abcdef123456")
@@ -85,16 +85,11 @@ class ProfileTestCase(TestCase):
             "password": "abcdef123456",
         }
         self.client.post(reverse("main:login"), data)
+        self.user = models.User.objects.get(username=data["username"])
 
     def test_profile(self):
-        response = self.client.post(reverse("main:profile"))
+        response = self.client.get(reverse("main:user_detail", args=(self.user.id,)))
         self.assertEqual(response.status_code, 200)
-
-
-class ProfileLoggedOutTestCase(TestCase):
-    def test_profile_noauth(self):
-        response = self.client.post(reverse("main:profile"))
-        self.assertEqual(response.status_code, 302)
 
 
 class DocumentCreateTestCase(TestCase):

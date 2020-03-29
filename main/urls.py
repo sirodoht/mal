@@ -8,9 +8,9 @@ app_name = "main"
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("accounts/create/", views.UserCreate.as_view(), name="user_create"),
+    path("accounts/<int:pk>/", views.UserDetail.as_view(), name="user_detail"),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("accounts/profile/", views.profile, name="profile"),
-    path("accounts/create/", views.signup, name="signup"),
 ]
 
 urlpatterns += [
