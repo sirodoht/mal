@@ -2,7 +2,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 
 from main import forms, models
 
@@ -40,3 +40,23 @@ class DocumentUpdate(SuccessMessageMixin, UpdateView):
 class DocumentDelete(DeleteView):
     model = models.Document
     success_url = reverse_lazy("main:index")
+
+
+class FileFieldView(FormView):
+    form_class = forms.UploadFilesForm
+    template_name = "main/import_md.html"
+    success_url = reverse_lazy("main:index")
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        files = request.FILES.getlist("file")
+        if form.is_valid():
+            for f in files:
+                content = f.read().decode("utf-8")
+                models.Document.objects.create(
+                    title=f.name, body=content, owner=request.user
+                )
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)

@@ -11,6 +11,7 @@ urlpatterns = [
     path("accounts/create/", views.UserCreate.as_view(), name="user_create"),
     path("accounts/<int:pk>/", views.UserDetail.as_view(), name="user_detail"),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("import/", views.FileFieldView.as_view(), name="import_md"),
 ]
 
 urlpatterns += [
