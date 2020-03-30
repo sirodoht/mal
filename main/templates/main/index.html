@@ -8,7 +8,7 @@
 
     <div class="main-body">
         <ul>
-            {% for doc in documents %}
+            {% for doc in docs %}
             <li><a href="{% url 'main:document_detail' doc.id %}">{{ doc.title }}</a></li>
             {% endfor %}
         </ul>
