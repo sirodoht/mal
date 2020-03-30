@@ -20,5 +20,9 @@
         {{ form.as_p }}
         <input type="submit" value="Login">
     </form>
+
+    <p>
+        <a href="{% url 'main:password_reset' %}">Forgot password?</a>
+    </p>
 </main>
 {% endblock %}
