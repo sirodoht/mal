@@ -13,6 +13,7 @@ urlpatterns = [
     path("accounts/<int:pk>/", views.UserDetail.as_view(), name="user_detail"),
     path("accounts/<int:pk>/edit/", views.UserUpdate.as_view(), name="user_update"),
     path("accounts/<int:pk>/delete/", views.UserDelete.as_view(), name="user_delete"),
+    path("accounts/<int:user_id>/cleanup/", views.user_cleanup, name="user_cleanup"),
     path("import/", views.FileFieldView.as_view(), name="import_md"),
 ]
 

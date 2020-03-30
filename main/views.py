@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
@@ -73,3 +75,12 @@ class FileFieldView(FormView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+@login_required
+def user_cleanup(request, user_id):
+    if request.method == "POST":
+        models.Document.objects.filter(owner=request.user).delete()
+        return redirect("main:index")
+    else:
+        return render(request, "main/user_cleanup_confirm_delete.html")

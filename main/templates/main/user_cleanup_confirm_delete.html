@@ -1,0 +1,11 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+<main class="delete">
+    <h1>Delete all your documents forever?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes, delete them!">
+    </form>
+</main>
+{% endblock %}

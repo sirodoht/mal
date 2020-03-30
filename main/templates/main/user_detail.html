@@ -12,6 +12,7 @@
 
         <br>
         <br><a href="{% url 'main:user_delete' user.id %}" class="user-delete">Self-destruct</a>
+        | <a href="{% url 'main:user_cleanup' user.id %}" class="user-delete">Delete all docs</a>
     </div>
 </main>
 {% endblock %}
