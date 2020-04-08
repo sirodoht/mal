@@ -65,7 +65,7 @@ class DocumentDelete(DeleteView):
 
 class FileFieldView(FormView):
     form_class = forms.UploadFilesForm
-    template_name = "main/import_md.html"
+    template_name = "main/document_import.html"
     success_url = reverse_lazy("index")
 
     def post(self, request, *args, **kwargs):

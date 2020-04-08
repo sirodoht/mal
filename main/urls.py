@@ -12,12 +12,13 @@ urlpatterns = [
     path("accounts/<int:pk>/", views.UserDetail.as_view(), name="user_detail"),
     path("accounts/<int:pk>/edit/", views.UserUpdate.as_view(), name="user_update"),
     path("accounts/<int:pk>/delete/", views.UserDelete.as_view(), name="user_delete"),
-    path("import/", views.FileFieldView.as_view(), name="import_md"),
 ]
 
 urlpatterns += [
-    path("documents/<int:pk>/", views.DocumentDetail.as_view(), name="document_detail"),
+    path("documents/import/", views.FileFieldView.as_view(), name="document_import"),
+    path("documents/purge/", views.document_purge, name="document_purge"),
     path("documents/create/", views.DocumentCreate.as_view(), name="document_create"),
+    path("documents/<int:pk>/", views.DocumentDetail.as_view(), name="document_detail"),
     path(
         "documents/<int:pk>/edit/",
         views.DocumentUpdate.as_view(),
@@ -28,5 +29,4 @@ urlpatterns += [
         views.DocumentDelete.as_view(),
         name="document_delete",
     ),
-    path("documents/purge/", views.document_purge, name="document_purge"),
 ]
