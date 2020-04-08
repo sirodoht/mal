@@ -84,9 +84,9 @@ class FileFieldView(FormView):
 
 
 @login_required
-def user_cleanup(request, user_id):
+def document_purge(request):
     if request.method == "POST":
         models.Document.objects.filter(owner=request.user).delete()
         return redirect("index")
     else:
-        return render(request, "main/user_cleanup_confirm_delete.html")
+        return render(request, "main/document_purge_confirm_delete.html")
