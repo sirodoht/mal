@@ -245,3 +245,26 @@ class DocumentPurgeAnonymousTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue("login" in response.url)
         self.assertEqual(models.Document.objects.all().count(), 3)
+
+
+class DocumentImportTestCase(TestCase):
+    def setUp(self):
+        # create user
+        user = models.User.objects.create(username="john")
+        user.set_password("abcdef123456")
+        user.save()
+
+        # login user
+        data = {
+            "username": "john",
+            "password": "abcdef123456",
+        }
+        self.client.post(reverse("login"), data)
+
+    def test_document_import(self):
+        filename = "README.md"
+        with open(filename) as fp:
+            response = self.client.post(reverse("document_import"), {"file": fp})
+            self.assertEqual(
+                models.Document.objects.get(title=filename).title, filename
+            )
