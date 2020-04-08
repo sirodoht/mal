@@ -132,6 +132,8 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 
+DEFAULT_FROM_EMAIL = "Frank Perry <frank@mostlyoverstatements.com>"
+
 
 # Security middleware
 
