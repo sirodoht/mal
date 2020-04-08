@@ -100,9 +100,7 @@ class UserUpdateTestCase(TestCase):
 
     def test_user_update(self):
         data = {"username": "john2", "email": "john2@example.com"}
-        response = self.client.post(
-            reverse("user_update", args=(self.user.id,)), data
-        )
+        response = self.client.post(reverse("user_update", args=(self.user.id,)), data)
         self.assertEqual(response.status_code, 302)
         updated_user = models.User.objects.get(id=self.user.id)
         self.assertEqual(updated_user.username, data["username"])
@@ -115,11 +113,9 @@ class UserPasswordChangeTestCase(TestCase):
         self.user.set_password("abcdef123456")
         self.user.save()
 
-    def test_user_update(self):
+    def test_user_password_change(self):
         data = {"username": "john2", "email": "john2@example.com"}
-        response = self.client.post(
-            reverse("user_update", args=(self.user.id,)), data
-        )
+        response = self.client.post(reverse("user_update", args=(self.user.id,)), data)
         self.assertEqual(response.status_code, 302)
         updated_user = models.User.objects.get(id=self.user.id)
         self.assertEqual(updated_user.username, data["username"])
@@ -188,12 +184,9 @@ class DocumentUpdateTestCase(TestCase):
 
 class DocumentDeleteTestCase(TestCase):
     def setUp(self):
-        data = {
-            "title": "Doc",
-            "body": "Content sentence.",
-        }
-        self.client.post(reverse("document_create"), data)
-        self.doc = models.Document.objects.get(title=data["title"])
+        self.doc = models.Document.objects.create(
+            title="Doc", body="Content sentence.",
+        )
 
     def test_document_delete(self):
         self.client.post(reverse("document_delete", args=(self.doc.id,)))
