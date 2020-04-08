@@ -260,6 +260,10 @@ nav {
 }
 
 /* user profile top right */
+aside {
+    padding-right: 16px;
+}
+
 .ceiling {
     grid-column: 4;
     display: flex;
