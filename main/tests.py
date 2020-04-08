@@ -191,3 +191,57 @@ class DocumentDeleteTestCase(TestCase):
     def test_document_delete(self):
         self.client.post(reverse("document_delete", args=(self.doc.id,)))
         self.assertFalse(models.Document.objects.all().exists())
+
+
+class DocumentPurgeTestCase(TestCase):
+    def setUp(self):
+        # create user
+        user = models.User.objects.create(username="john")
+        user.set_password("abcdef123456")
+        user.save()
+
+        # login user
+        data = {
+            "username": "john",
+            "password": "abcdef123456",
+        }
+        self.client.post(reverse("login"), data)
+
+        # create user's documents
+        models.Document.objects.create(
+            title="Doc 1", body="Content sentence 1.", owner=user
+        )
+        models.Document.objects.create(
+            title="Doc 2", body="Content sentence 2.", owner=user
+        )
+        models.Document.objects.create(
+            title="Doc 3", body="Content sentence 3.", owner=user
+        )
+
+    def test_document_purge(self):
+        response = self.client.post(reverse("document_purge"))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(models.Document.objects.all().exists())
+
+
+class DocumentPurgeAnonymousTestCase(TestCase):
+    def setUp(self):
+        # create user
+        user = models.User.objects.create(username="john")
+
+        # create user's documents
+        models.Document.objects.create(
+            title="Doc 1", body="Content sentence 1.", owner=user
+        )
+        models.Document.objects.create(
+            title="Doc 2", body="Content sentence 2.", owner=user
+        )
+        models.Document.objects.create(
+            title="Doc 3", body="Content sentence 3.", owner=user
+        )
+
+    def test_document_purge(self):
+        response = self.client.post(reverse("document_purge"))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue("login" in response.url)
+        self.assertEqual(models.Document.objects.all().count(), 3)
