@@ -25,7 +25,7 @@ class UserDetail(DetailView):
 
 class UserCreate(SuccessMessageMixin, CreateView):
     form_class = forms.UserCreationForm
-    success_url = reverse_lazy("main:login")
+    success_url = reverse_lazy("login")
     template_name = "main/user_create.html"
     success_message = "Welcome!"
 
@@ -39,7 +39,7 @@ class UserUpdate(SuccessMessageMixin, UpdateView):
 
 class UserDelete(DeleteView):
     model = models.User
-    success_url = reverse_lazy("main:index")
+    success_url = reverse_lazy("index")
 
 
 class DocumentDetail(DetailView):
@@ -60,13 +60,13 @@ class DocumentUpdate(SuccessMessageMixin, UpdateView):
 
 class DocumentDelete(DeleteView):
     model = models.Document
-    success_url = reverse_lazy("main:index")
+    success_url = reverse_lazy("index")
 
 
 class FileFieldView(FormView):
     form_class = forms.UploadFilesForm
     template_name = "main/import_md.html"
-    success_url = reverse_lazy("main:index")
+    success_url = reverse_lazy("index")
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
@@ -87,6 +87,6 @@ class FileFieldView(FormView):
 def user_cleanup(request, user_id):
     if request.method == "POST":
         models.Document.objects.filter(owner=request.user).delete()
-        return redirect("main:index")
+        return redirect("index")
     else:
         return render(request, "main/user_cleanup_confirm_delete.html")

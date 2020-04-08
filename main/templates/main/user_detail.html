@@ -6,13 +6,13 @@
         {{ user.username }}
     </h1>
     <div class="main-body">
-        <a href="{% url 'main:user_update' user.id %}">Update profile</a>
-        | <a href="{% url 'main:password_change' %}">Change password</a>
-        | <a href="{% url 'main:logout' %}">Logout</a>
+        <a href="{% url 'user_update' user.id %}">Update profile</a>
+        | <a href="{% url 'password_change' %}">Change password</a>
+        | <a href="{% url 'logout' %}">Logout</a>
 
         <br>
-        <br><a href="{% url 'main:user_delete' user.id %}" class="user-delete">Self-destruct</a>
-        | <a href="{% url 'main:user_cleanup' user.id %}" class="user-delete">Delete all docs</a>
+        <br><a href="{% url 'user_delete' user.id %}" class="user-delete">Self-destruct</a>
+        | <a href="{% url 'user_cleanup' user.id %}" class="user-delete">Delete all docs</a>
     </div>
 </main>
 {% endblock %}

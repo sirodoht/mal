@@ -12,9 +12,9 @@
 </main>
 
 <aside class="rightbar">
-    <a href="{% url 'main:document_update' document.id %}">Edit document</a>
+    <a href="{% url 'document_update' document.id %}">Edit document</a>
     <br>--
-    <br><a href="{% url 'main:document_delete' document.id %}">Del</a>
+    <br><a href="{% url 'document_delete' document.id %}">Del</a>
     <br>--
     <br>Created by {{ request.user }} at Mar 24, 2030.
     <br>Last edited by {{ request.user }} at Mar 24, 2030.

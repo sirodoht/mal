@@ -8,7 +8,7 @@ class User(AbstractUser):
     about = models.TextField(blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse("main:user_detail", kwargs={"pk": self.pk})
+        return reverse("user_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.username
@@ -31,7 +31,7 @@ class Document(models.Model):
         )
 
     def get_absolute_url(self):
-        return reverse("main:document_detail", kwargs={"pk": self.pk})
+        return reverse("document_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title

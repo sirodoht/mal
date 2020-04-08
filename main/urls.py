@@ -4,7 +4,6 @@ from django.urls import include, path
 from main import views
 
 admin.site.site_header = "mal administration"
-app_name = "main"
 
 urlpatterns = [
     path("", views.Index.as_view(), name="index"),
