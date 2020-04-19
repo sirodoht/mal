@@ -264,7 +264,7 @@ class DocumentImportTestCase(TestCase):
     def test_document_import(self):
         filename = "README.md"
         with open(filename) as fp:
-            response = self.client.post(reverse("document_import"), {"file": fp})
+            self.client.post(reverse("document_import"), {"file": fp})
             self.assertEqual(
                 models.Document.objects.get(title=filename).title, filename
             )

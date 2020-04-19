@@ -35,3 +35,7 @@ urlpatterns += [
         name="document_featurize",
     ),
 ]
+
+urlpatterns += [
+    path("api/documents/", views.APIDocumentList.as_view(), name="api_document_list"),
+]

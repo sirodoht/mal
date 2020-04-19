@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core import serializers
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 
@@ -95,3 +97,12 @@ def document_purge(request):
         return redirect("index")
     else:
         return render(request, "main/document_purge_confirm_delete.html")
+
+
+class APIDocumentList(ListView):
+    model = models.Document
+
+    def render_to_response(self, context):
+        queryset = self.model.objects.all()
+        data = serializers.serialize("json", queryset, fields=("title", "body"))
+        return HttpResponse(data, content_type="application/json")
