@@ -58,6 +58,11 @@ class DocumentUpdate(SuccessMessageMixin, UpdateView):
     success_message = "%(title)s updated successfully"
 
 
+class DocumentFeaturize(UpdateView):
+    model = models.Document
+    fields = ["is_featured"]
+
+
 class DocumentDelete(DeleteView):
     model = models.Document
     success_url = reverse_lazy("index")

@@ -357,6 +357,7 @@ form input[name="title"] {
     font-size: 24px;
 }
 
+
 input[type="submit"] {
     background: var(--link-color);
     border-left: 2px solid transparent;
@@ -371,6 +372,23 @@ input[type="submit"] {
 
 input[type="submit"]:active {
     border: 2px solid var(--ascend-color);
+}
+
+.form-inline {
+    display: inline;
+}
+
+.form-inline input[type="submit"] {
+    display: inline;
+    padding: 0;
+    border: none;
+    color: var(--link-color);
+    background: transparent;
+    font-size: 14px;
+}
+
+.form-inline input[type="submit"]:hover {
+    text-decoration: underline;
 }
 
 .delete input[type="submit"] {

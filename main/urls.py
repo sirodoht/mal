@@ -29,4 +29,9 @@ urlpatterns += [
         views.DocumentDelete.as_view(),
         name="document_delete",
     ),
+    path(
+        "documents/<int:pk>/featurize/",
+        views.DocumentFeaturize.as_view(),
+        name="document_featurize",
+    ),
 ]

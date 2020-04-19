@@ -13,6 +13,11 @@
 
 <aside class="rightbar">
     <a href="{% url 'document_update' document.id %}">Edit document</a>
+    | <form action="{% url 'document_featurize' document.id %}" method="post" class="form-inline">
+        <input type="checkbox" name="is_featured" id="id_is_featured" {% if not document.is_featured %}checked{% endif %} hidden>
+        {% csrf_token %}
+        <input type="submit" value="{% if not document.is_featured %}Featurize{% else %}Unfeaturize{% endif %}">
+    </form>
     <br>--
     <br><a href="{% url 'document_delete' document.id %}">Del</a>
     <br>--
