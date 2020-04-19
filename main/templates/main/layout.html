@@ -62,5 +62,54 @@
         </aside>
     </div>
 
+    <script src="{% static 'elasticlunr.js' %}"></script>
+    <script src="{% static 'fuse.js' %}"></script>
+    <script>
+        // elasticlunr for title + body
+        const lunrIndex = elasticlunr(function () {
+            this.addField('title');
+            this.addField('body');
+            this.setRef('id');
+        });
+
+        // load data from API and into indexes
+        var fuseIndex;
+        const dataReq = new XMLHttpRequest();
+        dataReq.addEventListener('error', function () {
+            console.log('Search data loading failed.');
+        });
+        dataReq.addEventListener('load', function () {
+            const jsonData = JSON.parse(this.responseText);
+            const data = [];
+            jsonData.forEach(rawItem => {
+                const item = {
+                    'id': rawItem.pk,
+                    'title': rawItem.fields.title,
+                    'body': rawItem.fields.body,
+                }
+                lunrIndex.addDoc(item);
+                data.push(item);
+            });
+
+            // fuse.js (fuzzy matching) for titles only
+            const options = {
+                isCaseSensitive: false,
+                includeScore: true,
+                location: 0,
+                threshold: 0.1,
+                distance: 100,
+                keys: [
+                    "title",
+                ],
+            };
+            fuseIndex = new Fuse(data, options);
+        });
+        dataReq.open('GET', '/api/documents/');
+        dataReq.send();
+    </script>
+
+    {% block scripts %}
+    {% endblock %}
+
 </body>
 </html>
