@@ -7,11 +7,18 @@
     </h1>
 
     <div class="main-body">
-        <ul>
-            {% for doc in docs %}
-            <li><a href="{% url 'document_detail' doc.id %}">{{ doc.title }}</a></li>
-            {% endfor %}
-        </ul>
+        <input type="text" name="search" id="search" autocomplete="off">
+        <div id="search-complete">
+            <ul>
+                {% for doc in docs %}
+                <li><a href="{% url 'document_detail' doc.id %}">{{ doc.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <ul id="search-results" style="display: none;">
+            </ul>
+        </div>
     </div>
 </main>
 
@@ -22,4 +29,81 @@
     {% endfor %}
 </aside>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function findInResults(results, itemId) {
+        let found = false;
+        results.forEach(item => {
+            if (item.id === itemId) {
+                found = true;
+            }
+        });
+        return found;
+    }
+
+    searchElem = document.getElementById('search');
+    searchElem.addEventListener('input', function (evt) {
+        const searchTerms = evt.target.value;
+        const lunrResults = lunrIndex.search(searchTerms, {
+            fields: {
+                title: {boost: 2},
+                body: {boost: 1}
+            }
+        });
+        const fuseResults = fuseIndex.search(searchTerms);
+
+
+        // merge results from fuse.js (only titles) and elasticlunr.js (titles + bodies)
+        const results = [];
+        fuseResults.forEach(fuseItem => {
+            results.push({
+                id: fuseItem.item.id,
+                title: fuseItem.item.title,
+                body: fuseItem.item.body,
+            });
+        });
+        lunrResults.forEach(lunrItem => {
+            if (!findInResults(results, lunrItem.doc.id)) {
+                results.push({
+                    id: lunrItem.doc.id,
+                    title: lunrItem.doc.title,
+                    body: lunrItem.doc.body,
+                });
+            }
+        });
+
+        // handle search results
+        const searchCompleteElem = document.getElementById('search-complete');
+        const searchResultsElem = document.getElementById('search-results');
+        if (searchTerms) {
+            searchCompleteElem.style.display = 'none';
+            searchResultsElem.style.display = 'block';
+
+            // cleanup old results
+            while (searchResultsElem.firstChild) {
+                searchResultsElem.removeChild(searchResultsElem.lastChild);
+            }
+
+            // build result elements and add them
+            results.forEach(resultItem => {
+                const liElem = document.createElement('li');
+                const anchorElem = document.createElement('a');
+                anchorElem.href = `/documents/${resultItem.id}/`;
+                anchorElem.innerText = resultItem.title;
+                liElem.appendChild(anchorElem);
+                searchResultsElem.appendChild(liElem);
+            });
+        } else {
+            searchCompleteElem.style.display = 'block';
+            searchResultsElem.style.display = 'none';
+        }
+    })
+
+    searchElem.focus();
+    if (searchElem.value) {
+        searchElem.dispatchEvent(new Event('input'));
+    }
+</script>
 {% endblock %}
