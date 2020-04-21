@@ -259,6 +259,15 @@ nav {
     color: var(--label-color);
 }
 
+.nav-group-body-subitem {
+    display: block;
+    margin-left: 16px;
+}
+
+.nav-group-body-subitem::before {
+    content: '• ';
+    color: var(--label-color);
+}
 /* user profile top right */
 aside {
     padding-right: 16px;
