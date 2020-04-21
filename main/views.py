@@ -1,9 +1,7 @@
-import os
+import io
 import uuid
-from pathlib import Path
-from zipfile import ZipFile
+import zipfile
 
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import serializers
@@ -108,36 +106,23 @@ def document_purge(request):
 
 
 def document_export(request):
+    # get all documents and add them into export_data encoded
     documents = models.Document.objects.all()
-
-    # write all documents into text files
-    export_container_path = Path("./_static/export/")
-    if settings.DEBUG:
-        export_container_path = Path("./main/static/export/")
-    export_uniquename = "export-" + str(uuid.uuid4())
-    export_dir = Path(export_container_path, export_uniquename)
-    export_dir.mkdir(parents=True, exist_ok=True)
-    export_filenames = []
+    export_data = []
     for doc in documents:
-        title = doc.title.replace(":", "--")
-        doc_full_path = Path(export_dir, title + ".md")
-        doc_filename = Path(export_uniquename, title + ".md")
-        export_filenames.append(str(doc_filename))
-        with open(doc_full_path, "w") as fp:
-            fp.write(doc.body)
+        title = doc.title.replace(":", "--") + ".md"
+        export_data.append((title, io.BytesIO(doc.body.encode())))
 
-    # build zip with all the above text files
-    archive_filename = Path(export_container_path, export_uniquename + ".zip")
-    with ZipFile(archive_filename, "w") as ar:
-        for filename in export_filenames:
-            full_path = Path(export_container_path, filename)
-            ar.write(full_path, filename)
+    # create zip archive in memory
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zip_file:
+        for file_name, data in export_data:
+            zip_file.writestr(file_name, data.getvalue())
 
-    return render(
-        request,
-        "main/document_export.html",
-        {"archive_path": f"export/{export_uniquename}.zip"},
-    )
+    cropped_uuid = str(uuid.uuid4())[:8]
+    response = HttpResponse(zip_buffer.getvalue(), content_type="application/zip")
+    response["Content-Disposition"] = f"attachment; filename=export-{cropped_uuid}.zip"
+    return response
 
 
 class APIDocumentList(ListView):
