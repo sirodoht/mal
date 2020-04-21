@@ -31,3 +31,17 @@
     {% endif %}
 </aside>
 {% endblock %}
+
+{% block scripts %}
+<script>
+    window.addEventListener('keypress', function (evt) {
+        if (evt.key === 'e') {
+            let url = document.location.href + 'edit/';
+            document.location.assign(url);
+        } else if (evt.key === 'u') {
+            let url = '/';
+            document.location.assign(url);
+        }
+    });
+</script>
+{% endblock %}
