@@ -19,6 +19,11 @@ class Document(models.Model):
     body = models.TextField(blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     is_featured = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    last_edited_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="last_edits"
+    )
 
     @property
     def as_markdown(self):
