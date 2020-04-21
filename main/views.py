@@ -17,7 +17,9 @@ class Index(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(Index, self).get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
-            context["docs"] = models.Document.objects.filter(owner=self.request.user)
+            context["docs"] = models.Document.objects.filter(
+                owner=self.request.user
+            ).order_by("-updated_at")
         return context
 
 
