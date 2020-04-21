@@ -3,6 +3,7 @@ import uuid
 from pathlib import Path
 from zipfile import ZipFile
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import serializers
@@ -110,7 +111,9 @@ def document_export(request):
     documents = models.Document.objects.all()
 
     # write all documents into text files
-    export_container_path = Path("./main/static/export/")
+    export_container_path = Path("./_static/export/")
+    if settings.DEBUG:
+        export_container_path = Path("./main/static/export/")
     export_uniquename = "export-" + str(uuid.uuid4())
     export_dir = Path(export_container_path, export_uniquename)
     os.mkdir(export_dir)
