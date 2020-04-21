@@ -34,7 +34,7 @@
 
             <div class="nav-group">
                 <div class="nav-group-title">DOCUMENTS</div>
-                <div class="nav-group-body">
+                <div class="nav-group-body" id="sidebar-index">
                     {% for doc in documents %}
                     <div class="nav-group-body-item"><a href="{% url 'document_detail' doc.id %}">{{ doc.title }}</a></div>
                     {% endfor %}
@@ -72,7 +72,7 @@
             this.setRef('id');
         });
 
-        // load data from API and into indexes
+        // load data from API and into elasticlunr + fuse indexes
         var fuseIndex;
         const dataReq = new XMLHttpRequest();
         dataReq.addEventListener('error', function () {
@@ -106,6 +106,48 @@
         });
         dataReq.open('GET', '/api/documents/');
         dataReq.send();
+
+        // build hierarchy on sidebar
+        const newSidebarIndex = document.createElement('div');
+        const sidebarIndex = document.getElementById('sidebar-index');
+        let currentSubsection = '';
+        for (let item of sidebarIndex.querySelectorAll('div')) {
+            if (item.textContent.indexOf(':') !== -1) {
+                // split parts into first level and all the rest
+                const parts = item.textContent.split(':');
+                const partOne = parts[0];
+                const partTwo = item.textContent.substring(parts[0].length + 1);
+
+                if (partOne !== currentSubsection) {
+                    // new subsection, add it and change 'currentSubsection' var
+                    currentSubsection = partOne;
+                    const partOneAnchorElem = document.createElement('span');
+                    partOneAnchorElem.textContent = partOne;
+                    partOneAnchorElem.style.color = '#878787';
+                    const partOneItemElem = document.createElement('div');
+                    partOneItemElem.classList.add('nav-group-body-item');
+                    partOneItemElem.appendChild(partOneAnchorElem);
+                    newSidebarIndex.appendChild(partOneItemElem);
+                }
+
+                // add one level down link
+                const partTwoAnchorElem = document.createElement('a');
+                partTwoAnchorElem.textContent = partTwo;
+                partTwoAnchorElem.href = item.childNodes[0].href;
+                const partTwoItemElem = document.createElement('div');
+                partTwoItemElem.classList.add('nav-group-body-subitem');
+                partTwoItemElem.appendChild(partTwoAnchorElem);
+                newSidebarIndex.appendChild(partTwoItemElem);
+
+                // delete original element with colon
+                item.parentElement.removeChild(item);
+            } else {
+                newSidebarIndex.appendChild(item);
+            }
+        }
+
+        // swap old sidebar with new
+        sidebarIndex.insertAdjacentElement('afterend', newSidebarIndex);
     </script>
 
     {% block scripts %}
