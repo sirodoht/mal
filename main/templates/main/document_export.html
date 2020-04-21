@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+<main>
+    <h1 class="main-title">
+        Export all documents
+    </h1>
+
+    <div class="main-body">
+        <a href="{% static archive_path %}" class="btn">Download ZIP archive</a>
+    </div>
+</main>
+
+{% if messages %}
+<aside class="rightbar">
+    {% for message in messages %}
+    <br><span{% if message.tags %} class="alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</span>
+    {% endfor %}
+</aside>
+{% endif %}
+{% endblock %}
