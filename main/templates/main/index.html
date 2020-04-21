@@ -97,6 +97,19 @@
         }
     })
 
+    searchElem.addEventListener('keypress', function (evt) {
+        if (evt.key === 'Enter') {
+            const searchCompleteElem = document.getElementById('search-complete');
+            const searchResultsElem = document.getElementById('search-results');
+
+            let url = searchCompleteElem.childNodes[1].href;
+            if (searchResultsElem.style.display !== 'none') {
+                url = searchResultsElem.childNodes[0].href;
+            }
+            document.location.assign(url);
+        }
+    });
+
     searchElem.focus();
     if (searchElem.value) {
         searchElem.dispatchEvent(new Event('input'));
