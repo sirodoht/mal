@@ -5,3 +5,4 @@ _static/
 db_data/
 pid-uwsgi
 .coverage
+main/static/export/*
