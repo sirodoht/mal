@@ -16,6 +16,7 @@ urlpatterns = [
 
 urlpatterns += [
     path("documents/import/", views.FileFieldView.as_view(), name="document_import"),
+    path("documents/export/", views.document_export, name="document_export"),
     path("documents/purge/", views.document_purge, name="document_purge"),
     path("documents/create/", views.DocumentCreate.as_view(), name="document_create"),
     path("documents/<int:pk>/", views.DocumentDetail.as_view(), name="document_detail"),
