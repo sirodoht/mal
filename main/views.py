@@ -116,7 +116,7 @@ def document_export(request):
         export_container_path = Path("./main/static/export/")
     export_uniquename = "export-" + str(uuid.uuid4())
     export_dir = Path(export_container_path, export_uniquename)
-    os.mkdir(export_dir)
+    export_dir.mkdir(parents=True, exist_ok=True)
     export_filenames = []
     for doc in documents:
         title = doc.title.replace(":", "--")
