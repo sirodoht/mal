@@ -314,6 +314,29 @@ h1 {
     line-height: 24px;
 }
 
+.main-body-results {
+    width: 500px;
+}
+
+.main-body-results ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.main-body-results li {
+    border: 1px solid var(--border-color);
+}
+
+.main-body-results a {
+    display: block;
+    padding: 4px 4px;
+    cursor: pointer;
+}
+
+.main-body-results a:hover {
+    background: var(--background-color);
+}
+
 .rightbar {
     grid-row: 3;
     grid-column: 3;
@@ -339,6 +362,7 @@ input[type="email"] {
     width: 500px;
     border: 1px solid var(--border-color);
     padding: 4px 4px;
+    box-sizing: border-box;
 }
 
 input[type="checkbox"] {

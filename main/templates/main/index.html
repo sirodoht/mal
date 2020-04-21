@@ -8,16 +8,14 @@
 
     <div class="main-body">
         <input type="text" name="search" id="search" autocomplete="off">
-        <div id="search-complete">
-            <ul>
+        <div class="main-body-results">
+            <div id="search-complete">
                 {% for doc in docs %}
-                <li><a href="{% url 'document_detail' doc.id %}">{{ doc.title }}</a></li>
+                <a href="{% url 'document_detail' doc.id %}">{{ doc.title }}</a>
                 {% endfor %}
-            </ul>
-        </div>
-        <div>
-            <ul id="search-results" style="display: none;">
-            </ul>
+            </div>
+            <div id="search-results" style="display: none;">
+            </div>
         </div>
     </div>
 </main>
@@ -88,12 +86,10 @@
 
             // build result elements and add them
             results.forEach(resultItem => {
-                const liElem = document.createElement('li');
                 const anchorElem = document.createElement('a');
                 anchorElem.href = `/documents/${resultItem.id}/`;
                 anchorElem.innerText = resultItem.title;
-                liElem.appendChild(anchorElem);
-                searchResultsElem.appendChild(liElem);
+                searchResultsElem.appendChild(anchorElem);
             });
         } else {
             searchCompleteElem.style.display = 'block';
